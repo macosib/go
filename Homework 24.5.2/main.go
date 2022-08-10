@@ -8,11 +8,10 @@ import (
 
 func sortBabelArray(array ...int) []int {
 	fmt.Println("Исходный массив:", array)
-	flag := false
 
 OuterLoop:
 	for i := 0; i < len(array)-1; i++ {
-		flag = false
+		flag := false
 		for j := 1; j < len(array); j++ {
 			if array[j] > array[j-1] {
 				array[j], array[j-1] = array[j-1], array[j]
