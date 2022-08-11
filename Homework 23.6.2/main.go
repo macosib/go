@@ -33,7 +33,7 @@ func parseTest(sentences []string, chars []rune) ([][]int, error) {
 	return result, nil
 }
 
-// main - Фукция принимает на вход состояние ошибки error.
+// checkError - Фукция принимает на вход состояние ошибки error.
 // Проверяет наличие ошибки, если ошибка на равна nil, то программа завершается.
 func checkError(err error) {
 	if err != nil {
