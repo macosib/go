@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+//ValidInputData - Функция получает данные в формате string, валидирует их и возращает в формате:
+// name string, age int, grade int, err error.
 func ValidInputData(data string) (string, int, int, error) {
 	result := strings.Split(strings.Trim(data, " \n"), " ")
 

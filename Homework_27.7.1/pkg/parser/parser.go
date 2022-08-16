@@ -8,6 +8,9 @@ import (
 	"os"
 )
 
+//InputNewStudent - Считывет с консоли информацию о студенте, валидирует данные и возвращает в формате:
+// name string, age int, grade int, bool, err error. Если данные не считаны, "", 0, 0,  false и ошибку.
+// Если данные считаны, но не прошли валидацию возвращает "", 0, 0, true и ошибку для перезапуска функции.
 func InputNewStudent() (string, int, int, bool, error) {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Добавьте нового студента - Имя Возраст Оценка: ")
@@ -16,18 +19,10 @@ func InputNewStudent() (string, int, int, bool, error) {
 		log.Println(err)
 		return "", 0, 0, false, err
 	}
-	name, age, grade, errData := parseInputData(student)
-	if errData != nil {
-		log.Println(errData)
-		return "", 0, 0, true, errData
-	}
-	return name, age, grade, true, errData
-}
-
-func parseInputData(data string) (string, int, int, error) {
-	name, age, grade, err := validator.ValidInputData(data)
+	name, age, grade, err := validator.ValidInputData(student)
 	if err != nil {
-		return "", 0, 0, err
+		log.Println(err)
+		return "", 0, 0, true, err
 	}
-	return name, age, grade, err
+	return name, age, grade, true, nil
 }
