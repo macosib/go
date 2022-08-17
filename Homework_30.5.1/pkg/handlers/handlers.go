@@ -4,21 +4,26 @@ import (
 	"Homework_30.5.1/pkg/user"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/go-chi/chi/v5"
 	"io/ioutil"
 	"net/http"
 	"strconv"
 )
 
+// Store - структура для хранения пользователей.
 type Store struct {
 	Store map[int]*user.User
 }
 
+// GetStore - Функция возвращает ссылку на экземпляр структуры Store в формате map[int]*user.User
 func GetStore() *Store {
 	return &Store{make(map[int]*user.User)}
 }
 
+// CreateUserView - Метод структуры Store, который обрабатывает POST запрос на создание пользователя.
+// Принимает на вход объект, соответствующий интерфейсу http.ResponseWriter и ссылку объект структуры http.Request.
+// В ответ отправляет ID созданного пользователя в формате JSON и код состояния HTTP, либо ошибку в текстовом формате
+// и код состояния HTTP. Тело запроса должно быть в формате {"name":"some name","age":"24","friends":[]}
 func (s *Store) CreateUserView(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case r.Method == "POST":
@@ -39,7 +44,6 @@ func (s *Store) CreateUserView(w http.ResponseWriter, r *http.Request) {
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusCreated)
 			response, _ := json.Marshal(userCreateData(s, &newUser))
-			fmt.Println("response", response)
 			w.Write(response)
 		}
 	default:
@@ -47,6 +51,10 @@ func (s *Store) CreateUserView(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// GetFriendsListView - Метод структуры Store, который обрабатывает GET запрос на получение списка друзей пользователя.
+// Принимает на вход объект, соответствующий интерфейсу http.ResponseWriter и ссылку объект структуры http.Request.
+// В ответ отправляет список друзей пользователя в формате JSON и код состояния HTTP, либо ошибку в текстовом формате
+// и код состояния HTTP.
 func (s *Store) GetFriendsListView(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case r.Method == "GET":
@@ -66,6 +74,10 @@ func (s *Store) GetFriendsListView(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// UpdateUserAgeView - Метод структуры Store, который обрабатывает PATCH запрос на изменение возраста пользователя.
+// Принимает на вход объект, соответствующий интерфейсу http.ResponseWriter и ссылку объект
+// структуры http.Request. В ответ отправляет статус обновления возраста и код состояния HTTP,
+// либо ошибку в текстовом формате и код состояния HTTP. Тело запроса должно быть в формате {"new age":"28"}
 func (s *Store) UpdateUserAgeView(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case r.Method == "PATCH":
@@ -96,6 +108,10 @@ func (s *Store) UpdateUserAgeView(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// MakeFriendsView - Метод структуры Store, который обрабатывает POST запрос на добавление пользователей в друзья.
+// Принимает на вход объект, соответствующий интерфейсу http.ResponseWriter и ссылку объект структуры http.Request.
+// В ответ отправляет статус добавления в друзья и код состояния HTTP, либо ошибку в текстовом формате
+// и код состояния HTTP. Тело запроса должно быть в формате {"source_id":"1","target_id":"2"}
 func (s *Store) MakeFriendsView(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case r.Method == "POST":
@@ -128,6 +144,10 @@ func (s *Store) MakeFriendsView(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// DeleteUserView - Метод структуры Store, который обрабатывает POST запрос на создание пользователя.
+// Принимает на вход объект, соответствующий интерфейсу w http.ResponseWriter и ссылку объект структуры r http.Request.
+// В ответ отправляет ID удаленного пользователя в текстовом формате и код состояния HTTP, либо ошибку в текстовом формате
+// и код состояния HTTP. Тело запроса должно быть в формате {"target_id":"1"}
 func (s *Store) DeleteUserView(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case r.Method == "DELETE":
@@ -160,6 +180,9 @@ func (s *Store) DeleteUserView(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// getFriendList - Функция примает ссылку на объект структуры s Store и ссылку объект структуры r http.Request.
+// Из URL извлекает параметр, который соответствует ID пользователя. Возвращает список друзей пользователя в формате
+// map[string][]int и состояние ошибки.
 func getFriendList(s *Store, r *http.Request) (map[string][]int, error) {
 	idParam := chi.URLParam(r, "UserId")
 	idUser, err := strconv.Atoi(idParam)
@@ -175,6 +198,9 @@ func getFriendList(s *Store, r *http.Request) (map[string][]int, error) {
 	return result, nil
 }
 
+// updateUserAge - Функция примает ссылку на объект структуры s Store, ссылку объект структуры r http.Request
+// и новый возраст пользователя age в формате int. Из URL извлекает параметр, который соответствует ID пользователя.
+// Возвращает список друзей пользователя в формате map[string][]int и состояние ошибки.
 func updateUserAge(s *Store, r *http.Request, age int) error {
 	idParam := chi.URLParam(r, "UserId")
 	idUser, err := strconv.Atoi(idParam)
@@ -189,17 +215,20 @@ func updateUserAge(s *Store, r *http.Request, age int) error {
 	return nil
 }
 
+// userCreateData - Функция примает ссылку на объект структуры s Store, ссылку объект структуры newUser user.User
+// Добавляет нового пользователя в хранилище s *Store. Возвращает информацию о новом пользователе в формате map[string][]int.
 func userCreateData(s *Store, newUser *user.User) map[string]int {
 	result := make(map[string]int)
 	idUser := len(s.Store) + 1
 	s.Store[idUser] = newUser
 	result["UserId"] = idUser
-	fmt.Println("res", result)
 	return result
 }
 
+// makeFriends - Функция примает ссылку на объект структуры s Store, ссылку объект структуры newFriends user.Friend
+// Извлекает из объекта структуры user.Friend ID пользователей добавляет их в друзья друг к другу.
+// Возвращает имена пользователей в формате string и состояние ошибки.
 func makeFriends(s *Store, newFriends *user.Friend) (string, string, error) {
-
 	sourseUser, ok := s.Store[newFriends.SourceId]
 	if !ok {
 		return "", "", errors.New("Такого пользователя нет!")
@@ -214,8 +243,10 @@ func makeFriends(s *Store, newFriends *user.Friend) (string, string, error) {
 	return sourseUser.Name, targetUser.Name, nil
 }
 
+// deleteUser - Функция примает ссылку на объект структуры s Store, ссылку объект структуры userTarget user.UserId
+// Извлекает из объекта структуры user.UserId ID пользователя и удалеет его из хранилища, а также из списка друзей всех
+// пользователей. Возвращает имя удаленного пользователя в формате string и состояние ошибки.
 func deleteUser(s *Store, userTarget *user.UserId) (string, error) {
-
 	userName, ok := s.Store[userTarget.TargetId]
 	if !ok {
 		return "", errors.New("Такого пользователя нет!")
@@ -236,6 +267,8 @@ func deleteUser(s *Store, userTarget *user.UserId) (string, error) {
 	return userName.Name, nil
 }
 
+// remove - Функция примает на вход массив s []int и индекс элемента, который необходимо удалить. Возвращает новый массив
+// без указанного элемента.
 func remove(s []int, i int) []int {
 	s[i] = s[len(s)-1]
 	return s[:len(s)-1]

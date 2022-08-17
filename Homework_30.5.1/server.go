@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// main - Основная функция программы. Регистрирует маршруты и обработчики запросов API.
 func main() {
 
 	store := handlers.GetStore()
