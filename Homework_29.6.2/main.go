@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+//getNumber - функция генирирует случайное число и передает его в канал chan int.
 func getNumber() chan int {
 	intChan := make(chan int)
 	go func() {
@@ -18,6 +19,7 @@ func getNumber() chan int {
 	return intChan
 }
 
+//getNumber - функция принимает число из канала chan int, возводит во вторую степень и передает его в канал chan int.
 func powNumber(c chan int) chan int {
 	intChan := make(chan int)
 	go func() {
@@ -27,6 +29,8 @@ func powNumber(c chan int) chan int {
 	return intChan
 }
 
+//getNumber - Основная функция программы. Выводит в консоль результат выполднения функции powNumber(getNumber())), пока
+// не будет получен сигнал завершения.
 func main() {
 	var wg sync.WaitGroup
 	signalChanel := make(chan os.Signal, 1)

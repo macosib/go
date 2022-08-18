@@ -8,6 +8,7 @@ import (
 	"sync"
 )
 
+// handlerStop - функция принмает строку в формате string и возвращает результат проверки остановки в формате bool
 func handlerStop(str string) bool {
 	if str == "стоп" {
 		return true
@@ -15,6 +16,7 @@ func handlerStop(str string) bool {
 	return false
 }
 
+//inputNumber - функция считывает число из консоли.
 func inputNumber() int {
 	for {
 		var input string
@@ -31,7 +33,7 @@ func inputNumber() int {
 		return number
 	}
 }
-
+//getNumber - функция возвращает введенное число из консоли в канал.
 func getNumber() chan int {
 	intChan := make(chan int)
 	go func() {
@@ -40,6 +42,7 @@ func getNumber() chan int {
 	return intChan
 }
 
+//powNumber - функция принимает число из канала, возводит во вторую степень и возвращает результат в канал.
 func powNumber(c chan int) chan int {
 	intChan := make(chan int)
 	go func() {
@@ -48,7 +51,7 @@ func powNumber(c chan int) chan int {
 	}()
 	return intChan
 }
-
+//multNumber - функция принимает число из канала, умножает на 2 и возвращает результат в канал.
 func multNumber(c chan int) chan int {
 	intChan := make(chan int)
 	go func() {
@@ -58,6 +61,7 @@ func multNumber(c chan int) chan int {
 	return intChan
 }
 
+//main Основная функция программы. Считывает число с консоли выводит результат выполнения функций.
 func main() {
 	var wg sync.WaitGroup
 	for {
