@@ -6,55 +6,55 @@ Content-Type: application/json
 
 
 ### Send POST request with json body
-POST http://localhost:8000/api/v1/create
+POST http://localhost:8080/api/v1/create
 Content-Type: application/json
 
 {"name": "Ivan", "age": 21, "friends": [1,7]}
 
 ### Send POST request with json body
-POST http://localhost:80/api/v1/create
+POST http://localhost:8080/api/v1/create
 Content-Type: application/json
 
 {"name": "Vasya", "age": 27, "friends": []}
 
 ### Send POST request with json body
-POST http://localhost:8000/api/v1/create
+POST http://localhost:8080/api/v1/create
 Content-Type: application/json
 
 {"name": "Gena", "age": 25, "friends": []}
 
 ### GET request with a header
-GET http://localhost:8000/api/v1/friends/7
+GET http://localhost:8080/api/v1/friends/7
 Accept: application/json
 
 ### GET request with a header
-GET http://localhost:8000/api/v1/friends/2
+GET http://localhost:8080/api/v1/friends/2
 Accept: application/json
 
 ### GET request with a header
-GET http://localhost:8000/api/v1/friends/4
+GET http://localhost:8080/api/v1/friends/4
 Accept: application/json
 
 ### Send POST request with json body
-POST http://localhost:8000/api/v1/make_friends
+POST http://localhost:8080/api/v1/make_friends
 Content-Type: application/json
 
 {"source_id": 5,"target_id": 7}
 
 ### Send POST request with json body
-POST http://localhost:8000/api/v1/make_friends
+POST http://localhost:8080/api/v1/make_friends
 Content-Type: application/json
 
 {"source_id": 1,"target_id": 2}
 
 ### Send POST request with json body
-DELETE http://localhost:8000/api/v1/user
+DELETE http://localhost:8080/api/v1/user
 Content-Type: application/json
 
 {"target_id": 1}
 
 ### Send POST request with json body
-PATCH http://localhost:8000/api/v1/14
+PATCH http://localhost:8080/api/v1/4
 Content-Type: application/json
 
 {"new age": 25}
