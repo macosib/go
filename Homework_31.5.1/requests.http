@@ -1,5 +1,5 @@
 ### Send POST request with json body
-POST http://localhost:8000/api/v1/create
+POST http://localhost:8080/api/v1/create
 Content-Type: application/json
 
 {"name" : "Oleg","age": 30,"friends": [1,2,3]}
@@ -12,7 +12,7 @@ Content-Type: application/json
 {"name": "Ivan", "age": 21, "friends": [1,7]}
 
 ### Send POST request with json body
-POST http://localhost:8000/api/v1/create
+POST http://localhost:80/api/v1/create
 Content-Type: application/json
 
 {"name": "Vasya", "age": 27, "friends": []}

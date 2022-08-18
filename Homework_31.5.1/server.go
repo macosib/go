@@ -35,5 +35,5 @@ func main() {
 	router.Delete("/api/v1/user", s.DeleteUserView)
 	router.Get("/api/v1/friends/{UserId}", s.GetFriendsListView)
 	router.Patch("/api/v1/{UserId}", s.UpdateUserAgeView)
-	http.ListenAndServe(":80", router)
+	http.ListenAndServe(":8000", router)
 }
