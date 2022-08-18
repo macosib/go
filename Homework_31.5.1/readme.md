@@ -1,4 +1,4 @@
-#  <font color='red'>Requirements</font>
+#  <font color='red'>Зависимости:</font>
 * Необходимо установить [Docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1), и установить [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 * Необходимо установить [Docker Compose](https://docs.docker.com/compose/install/#install-compose).
 
