@@ -1,59 +1,61 @@
-### Send POST request with json body
+
+
+### Send POST add user
 POST http://localhost:8080/api/v1/create
 Content-Type: application/json
 
 {"name" : "Oleg","age": 30,"friends": [1,2,3]}
 
 
-### Send POST request with json body
+### Send POST add user
 POST http://localhost:8080/api/v1/create
 Content-Type: application/json
 
 {"name": "Ivan", "age": 21, "friends": [1,7]}
 
-### Send POST request with json body
+### Send POST add user
 POST http://localhost:8080/api/v1/create
 Content-Type: application/json
 
 {"name": "Vasya", "age": 27, "friends": []}
 
-### Send POST request with json body
+### Send POST add user
 POST http://localhost:8080/api/v1/create
 Content-Type: application/json
 
 {"name": "Gena", "age": 25, "friends": []}
 
-### GET request with a header
-GET http://localhost:8080/api/v1/friends/7
+### Send GET friendlist
+GET http://localhost:8080/api/v1/friends/1
 Accept: application/json
 
-### GET request with a header
+### Send GET friendlist
 GET http://localhost:8080/api/v1/friends/2
 Accept: application/json
 
-### GET request with a header
-GET http://localhost:8080/api/v1/friends/4
+### Send GET friendlist
+GET http://localhost:8080/api/v1/friends/3
 Accept: application/json
 
-### Send POST request with json body
+### Send POST add to friendlist
 POST http://localhost:8080/api/v1/make_friends
 Content-Type: application/json
 
-{"source_id": 5,"target_id": 7}
+{"source_id": 1,"target_id": 3}
 
-### Send POST request with json body
+### Send POST add to friendlist
 POST http://localhost:8080/api/v1/make_friends
 Content-Type: application/json
 
-{"source_id": 1,"target_id": 2}
+{"source_id": 2,"target_id": 4}
 
-### Send POST request with json body
+### Send DELETE remove user
 DELETE http://localhost:8080/api/v1/user
 Content-Type: application/json
 
 {"target_id": 1}
 
-### Send POST request with json body
+### Send PATCH change age
 PATCH http://localhost:8080/api/v1/4
 Content-Type: application/json
 
